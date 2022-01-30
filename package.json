@@ -30,7 +30,11 @@
     "prepack": "npm run build",
     "start": "TS_NODE_PROJECT=./examples/tsconfig.json ts-node-dev --require tsconfig-paths/register --respawn ./examples/basic/index.ts"
   },
+  "dependencies": {
+    "etag": "1.8.1"
+  },
   "devDependencies": {
+    "@types/etag": "1.8.1",
     "@types/node": "16.11.21",
     "prettier": "2.5.1",
     "rimraf": "3.0.2",
