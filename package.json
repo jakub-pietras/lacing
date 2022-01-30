@@ -1,0 +1,22 @@
+{
+  "name": "lacing",
+  "description": "Simple server library",
+  "version": "0.0.0",
+  "author": "Jakub Pietras <jakub.pietras@outlook.com>",
+  "license": "MIT",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jakub-pietras/lacing.git"
+  },
+  "keywords": [
+    "http",
+    "node",
+    "rest",
+    "router",
+    "server"
+  ],
+  "engines": {
+    "node": ">= 16.13"
+  }
+}
