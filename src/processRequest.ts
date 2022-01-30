@@ -3,6 +3,7 @@ import { IncomingHttpHeaders, IncomingMessage } from 'http';
 import qs, { ParsedQs } from 'qs';
 import { URL } from 'url';
 
+import { HttpMethod } from './httpTypes';
 import { Either, left, right } from './either';
 
 type PatchedIncomingMessage = IncomingMessage & {
@@ -12,7 +13,7 @@ type PatchedIncomingMessage = IncomingMessage & {
 export type ProcessedRequest = {
   cookies: Record<string, string>;
   headers: IncomingHttpHeaders;
-  method: string;
+  method: HttpMethod;
   protocol: 'http' | 'https';
   url: Omit<URL, 'searchParams' | 'toJSON' | 'toString'> & { query: ParsedQs };
 };
@@ -46,7 +47,7 @@ export const processRequest = (
   return right({
     cookies,
     headers: { ...request.headers },
-    method: request.method,
+    method: request.method as HttpMethod,
     protocol,
     url: {
       hash: parsedUrl.hash,
