@@ -1,9 +1,11 @@
 import { createServer } from 'http';
 
-import { mount } from 'lacing';
+import { jsonResult, mount } from 'lacing';
 
-const app = () => {};
+const logger = { error: console.error, info: console.log, warn: console.warn };
 
-createServer(mount(app)).listen(3000, () => {
+const app = async () => jsonResult({ body: { result: 'Ok' }, statusCode: 200 });
+
+createServer(mount(app, { logger })).listen(3000, () => {
   console.log('Listening on 3000...');
 });
