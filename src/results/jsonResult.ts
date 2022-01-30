@@ -1,6 +1,6 @@
 import { HttpResult } from '../httpResult';
 
-type JsonResult = HttpResult & { body: Record<string, unknown> };
+type JsonResult = Omit<HttpResult, 'body'> & { body: Record<string, unknown> };
 
 export const jsonResult = (result: JsonResult): HttpResult => ({
   ...result,
