@@ -36,7 +36,7 @@ export const processRequest = (
       : {};
 
   const protocol =
-    request.headers['x-forwarded-proto'] || request.socket.encrypted ? 'https' : 'http';
+    request.headers['x-forwarded-proto'] === 'https' || request.socket.encrypted ? 'https' : 'http';
 
   const parsedUrl = new URL(request.url, `${protocol}://${request.headers.host}`);
 
