@@ -31,11 +31,15 @@
     "start": "TS_NODE_PROJECT=./examples/tsconfig.json ts-node-dev --require tsconfig-paths/register --respawn ./examples/basic/index.ts"
   },
   "dependencies": {
-    "etag": "1.8.1"
+    "cookie": "0.4.1",
+    "etag": "1.8.1",
+    "qs": "6.10.3"
   },
   "devDependencies": {
+    "@types/cookie": "0.4.1",
     "@types/etag": "1.8.1",
     "@types/node": "16.11.21",
+    "@types/qs": "6.9.7",
     "prettier": "2.5.1",
     "rimraf": "3.0.2",
     "ts-node-dev": "1.1.8",

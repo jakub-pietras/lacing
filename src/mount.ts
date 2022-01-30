@@ -1,6 +1,7 @@
 import { RequestListener } from 'http';
-import { attemptAsync, matchWith } from './either';
 
+import { ProcessedRequest, processRequest } from './processRequest';
+import { attemptAsync, matchWith } from './either';
 import { HttpResult } from './httpResult';
 import { writeResponse } from './writeResponse';
 
@@ -13,9 +14,20 @@ export type MountOptions = {
 };
 
 export const mount =
-  (handler: () => Promise<HttpResult>, { logger }: MountOptions): RequestListener =>
+  (
+    handler: (processedRequest: ProcessedRequest) => Promise<HttpResult>,
+    { logger }: MountOptions
+  ): RequestListener =>
   async (request, response) => {
-    const handlerResult = await attemptAsync(() => handler());
+    const processRequestResult = processRequest(request);
+
+    if (processRequestResult.kind === 'left') {
+      logger.error(`Request processing error - ${processRequestResult.error}`);
+      return;
+    }
+
+    const processedRequest = processRequestResult.data;
+    const handlerResult = await attemptAsync(() => handler(processedRequest));
 
     const safeResult = matchWith(handlerResult, {
       right: (value) => value,
