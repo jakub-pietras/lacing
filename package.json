@@ -1,7 +1,7 @@
 {
   "name": "lacing",
   "description": "Simple server library",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "Jakub Pietras <jakub.pietras@outlook.com>",
   "license": "MIT",
   "main": "dist/index.js",
