@@ -33,6 +33,7 @@
   "dependencies": {
     "cookie": "0.4.1",
     "etag": "1.8.1",
+    "path-to-regexp": "6.2.0",
     "qs": "6.10.3"
   },
   "devDependencies": {

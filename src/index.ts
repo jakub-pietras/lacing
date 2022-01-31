@@ -1,7 +1,10 @@
 export { HttpResult } from './httpResult';
 export { ProcessedRequest } from './processRequest';
 export { jsonResult } from './results/jsonResult';
-export { MethodsHandlersMap, methods } from './routing/methods';
+export { methods, MethodsHandlersMap } from './routing/methods';
+export { router } from './routing/router';
+export { routes, RoutesHandlersMap } from './routing/routes';
+export { ProcessedRequestWithParams } from './routing/types';
 export { permanentRedirectionResult } from './results/permanentRedirectionResult';
 export { temporaryRedirectionResult } from './results/temporaryRedirectionResult';
 export { mount, MountOptions } from './mount';

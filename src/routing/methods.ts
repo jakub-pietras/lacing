@@ -1,19 +1,26 @@
+import { Handler, HandlerWithParams, ProcessedRequestWithParams } from './types';
 import { HttpMethod } from '../httpTypes';
 import { HttpResult } from '../httpResult';
-import { ProcessedRequest } from '../processRequest';
 
-type SupportedMethod = Extract<HttpMethod, 'DELETE' | 'GET' | 'HEAD' | 'PATCH' | 'POST' | 'PUT'>;
-type Handler = (request: ProcessedRequest) => Promise<HttpResult>;
-export type MethodsHandlersMap = Partial<Record<SupportedMethod, Handler>>;
+type SupportedMethod = Extract<HttpMethod, 'DELETE' | 'GET' | 'PATCH' | 'POST' | 'PUT'>;
+export type MethodsHandlersMap = Partial<Record<SupportedMethod, HandlerWithParams>>;
 
-export const methods =
-  (handlers: MethodsHandlersMap, notFoundHandler?: Handler) =>
-  async (request: ProcessedRequest): Promise<HttpResult> => {
-    const handler = (handlers as Partial<Record<string, Handler>>)[request.method];
+export const methods = (handlers: MethodsHandlersMap, options?: { notFoundHandler?: Handler }) => {
+  const getHandler = handlers.GET;
+  const headHandler = getHandler ? { HEAD: handlers.GET } : undefined;
+
+  const expandedHandlers = {
+    ...handlers,
+    ...headHandler,
+  } as Partial<Record<string, HandlerWithParams>>;
+
+  return async (request: ProcessedRequestWithParams): Promise<HttpResult> => {
+    const handler = expandedHandlers[request.method];
 
     if (!handler) {
-      return notFoundHandler?.(request) ?? { statusCode: 404 };
+      return options?.notFoundHandler?.(request) ?? { statusCode: 404 };
     }
 
     return handler(request);
   };
+};
